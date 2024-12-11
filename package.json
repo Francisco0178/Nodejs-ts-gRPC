@@ -1,0 +1,29 @@
+{
+  "name": "2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run generate && tsc && npm run copy-gen",
+    "generate": "npm run gen-js && npm run gen-ts",
+    "gen-js": "protoc-gen-grpc --js_out=import_style=commonjs,binary:./src/gen/ --grpc_out=grpc_js:./src/gen/ --proto_path=./proto/ users.proto",
+    "gen-ts": "protoc-gen-grpc-ts --ts_out=grpc_js:./src/gen/ --proto_path=./proto/ users.proto",
+    "copy-gen": "copyfiles -u 1 \"src/gen/*.js\" dist/",
+    "server": "node dist/server/server.js",
+    "dev": "ts-node src/server/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/google-protobuf": "^3.15.12",
+    "@types/node": "^22.10.2",
+    "copyfiles": "^2.4.1",
+    "protoc-gen-grpc": "^2.0.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.12.4"
+  }
+}
